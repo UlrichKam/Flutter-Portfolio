@@ -71,43 +71,32 @@ class Home extends StatelessWidget {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Header(),
-            Carousel(),
-            const SizedBox(
-              height: 20.0,
-            ),
-            CvSection(),
-            IosAppAd(),
-            const SizedBox(
-              height: 70.0,
-            ),
-            WebsiteAd(),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 28.0),
-              child: PortfolioStats(),
-            ),
-            const SizedBox(
-              height: 50.0,
-            ),
-            EducationSection(),
-            const SizedBox(
-              height: 50.0,
-            ),
-            SkillSection(),
-            const SizedBox(
-              height: 50.0,
-            ),
-            Sponsors(),
-            const SizedBox(
-              height: 50.0,
-            ),
-            TestimonialWidget(),
-            Footer(),
-          ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 28),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              Header(),
+              Carousel(),
+              SizedBox(height: 20.0),
+              CvSection(),
+              IosAppAd(),
+              //const SizedBox(height: 70.0),
+              //const WebsiteAd(),
+              //SizedBox(height: 20.0),
+              PortfolioStats(),
+              SizedBox(height: 50.0),
+              EducationSection(),
+              SizedBox(height: 50.0),
+              SkillSection(),
+              //SizedBox(height: 50.0),
+              //Sponsors(),
+              //SizedBox(height: 50.0),
+              //TestimonialWidget(),
+              Footer(),
+            ],
+          ),
         ),
       ),
     );

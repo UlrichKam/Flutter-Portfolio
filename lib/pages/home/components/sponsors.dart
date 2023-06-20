@@ -11,6 +11,8 @@ final List<String> sponsorsLogo = [
 ];
 
 class Sponsors extends StatelessWidget {
+  const Sponsors({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,32 +28,27 @@ class Sponsors extends StatelessWidget {
 
 Widget _buildUi(double width) {
   return Center(
-    child: ResponsiveWrapper(
-      minWidth: width,
-      maxWidth: width,
-      defaultScale: false,
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          return Wrap(
-            runSpacing: 50.0,
-            spacing: 50.0,
-            children: sponsorsLogo
-                .map(
-                  (logo) => Container(
-                    height: 20.0,
-                    constraints: BoxConstraints(
-                      // max of 3 per row when on mobile and 5 per row on bigger screens
-                      maxWidth: ScreenHelper.isMobile(context)
-                          ? constraints.maxWidth / 3.0 - 50.0
-                          : constraints.maxWidth / 5.0 - 50.0,
-                    ),
-                    child: Image.asset(logo),
+    child: LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return Wrap(
+          runSpacing: 50.0,
+          spacing: 50.0,
+          children: sponsorsLogo
+              .map(
+                (logo) => Container(
+                  height: 20.0,
+                  constraints: BoxConstraints(
+                    // max of 3 per row when on mobile and 5 per row on bigger screens
+                    maxWidth: ScreenHelper.isMobile(context)
+                        ? constraints.maxWidth / 3.0 - 50.0
+                        : constraints.maxWidth / 5.0 - 50.0,
                   ),
-                )
-                .toList(),
-          );
-        },
-      ),
+                  child: Image.asset(logo),
+                ),
+              )
+              .toList(),
+        );
+      },
     ),
   );
 }

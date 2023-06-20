@@ -1,17 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:portfolio/models/mobile_apps_model.dart';
 import 'package:portfolio/utils/constants.dart';
 import 'package:portfolio/utils/screen_helper.dart';
 
-class IosAppAd extends StatelessWidget {
+class IosAppAd extends StatefulWidget {
+  const IosAppAd({Key? key}) : super(key: key);
+
+  @override
+  State<IosAppAd> createState() => _IosAppAdState();
+}
+
+class _IosAppAdState extends State<IosAppAd> with TickerProviderStateMixin{
+  final ValueNotifier<int> appIndexValue = ValueNotifier<int>(0);
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  int index = 0;
+  @override
+  void initState() {
+    _controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 1));
+    _animation = _controller.drive(TweenSequence([
+      TweenSequenceItem(tween: ConstantTween(0.0), weight: 1.0),
+      TweenSequenceItem(tween: ConstantTween(1.0), weight: 1.0),
+    ]));
+    _controller.repeat();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ScreenHelper(
-        desktop: _buildUi(kDesktopMaxWidth),
-        tablet: _buildUi(kTabletMaxWidth),
-        mobile: _buildUi(getMobileMaxWidth(context)),
-      ),
+    return ScreenHelper(
+      desktop: _buildUi(kDesktopMaxWidth),
+      tablet: _buildUi(kTabletMaxWidth),
+      mobile: _buildUi(getMobileMaxWidth(context)),
     );
   }
 
@@ -19,21 +40,18 @@ class IosAppAd extends StatelessWidget {
     return Center(
       child: LayoutBuilder(
         builder: (context, constraints) {
-          return ResponsiveWrapper(
-            maxWidth: width,
-            minWidth: width,
-            defaultScale: false,
-            child: Container(
-              child: Flex(
-                direction: constraints.maxWidth > 720
-                    ? Axis.horizontal
-                    : Axis.vertical,
+          return ValueListenableBuilder(
+            valueListenable: _animation,
+            builder: (context, ind, widget) {
+              return Flex(
+                direction:
+                constraints.maxWidth > 720 ? Axis.horizontal : Axis.vertical,
                 children: [
                   // Disable expanded on smaller screen to avoid Render errors by setting flex to 0
                   Expanded(
                     flex: constraints.maxWidth > 720.0 ? 1 : 0,
                     child: Image.asset(
-                      "assets/ios.png",
+                      apps[index].assetImage,
                       // Set width for image on smaller screen
                       width: constraints.maxWidth > 720.0 ? null : 350.0,
                     ),
@@ -45,7 +63,7 @@ class IosAppAd extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "IOS APP",
+                          apps[index].header,
                           style: GoogleFonts.oswald(
                             color: kPrimaryColor,
                             fontWeight: FontWeight.w900,
@@ -56,7 +74,7 @@ class IosAppAd extends StatelessWidget {
                           height: 15.0,
                         ),
                         Text(
-                          "UNIVERSAL\nSMART HOME APP",
+                          apps[index].name.toUpperCase(),
                           style: GoogleFonts.oswald(
                             color: Colors.white,
                             fontWeight: FontWeight.w900,
@@ -67,9 +85,9 @@ class IosAppAd extends StatelessWidget {
                         const SizedBox(
                           height: 10.0,
                         ),
-                        const Text(
-                          "This is a random text about the project, I should have used the regular lorem ipsum text, but I am too lazy to search for that. This should be long enough",
-                          style: TextStyle(
+                        Text(
+                          apps[index].description,
+                          style: const TextStyle(
                             color: kCaptionColor,
                             height: 1.5,
                             fontSize: 15.0,
@@ -119,9 +137,14 @@ class IosAppAd extends StatelessWidget {
                                   ),
                                 ),
                                 height: 48.0,
-                                padding: const EdgeInsets.symmetric(horizontal: 28.0),
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: 28.0),
                                 child: TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    setState(() {
+                                      index+1 == apps.length ? index = 0 : index++;
+                                    });
+                                  },
                                   child: const Center(
                                     child: Text(
                                       "NEXT APP",
@@ -141,8 +164,8 @@ class IosAppAd extends StatelessWidget {
                     ),
                   )
                 ],
-              ),
-            ),
+              );
+            }
           );
         },
       ),

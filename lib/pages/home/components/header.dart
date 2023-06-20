@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/models/header_item.dart';
 import 'package:portfolio/utils/constants.dart';
@@ -21,6 +20,8 @@ List<HeaderItem> headerItems = [
 ];
 
 class HeaderLogo extends StatelessWidget {
+  const HeaderLogo({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
@@ -31,7 +32,7 @@ class HeaderLogo extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                text: "M",
+                text: "K",
                 style: GoogleFonts.oswald(
                   color: Colors.white,
                   fontSize: 32.0,
@@ -55,6 +56,8 @@ class HeaderLogo extends StatelessWidget {
 }
 
 class HeaderRow extends StatelessWidget {
+  const HeaderRow({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ResponsiveVisibility(
@@ -112,7 +115,10 @@ class HeaderRow extends StatelessWidget {
   }
 }
 
+
 class Header extends StatelessWidget {
+  const Header({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ScreenHelper(
@@ -134,7 +140,7 @@ class Header extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            HeaderLogo(),
+            const HeaderLogo(),
             // Restart server to make icons work
             // Lets make a scaffold key and create a drawer
             GestureDetector(
@@ -143,7 +149,7 @@ class Header extends StatelessWidget {
                 Globals.scaffoldKey.currentState!.openEndDrawer();
               },
               child: const Icon(
-                FlutterIcons.menu_fea,
+                Icons.home,
                 color: Colors.white,
                 size: 28.0,
               ),
@@ -160,7 +166,7 @@ class Header extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+        children: const [
           HeaderLogo(),
           HeaderRow(),
         ],

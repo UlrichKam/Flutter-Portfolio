@@ -3,10 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/pages/home/components/carousel_items.dart';
 import 'package:portfolio/utils/constants.dart';
 import 'package:portfolio/utils/screen_helper.dart';
-import 'package:responsive_framework/responsive_framework.dart';
 
-class Carousel extends StatelessWidget {
+class Carousel extends StatefulWidget {
+  const Carousel({Key? key}) : super(key: key);
+
+  @override
+  State<Carousel> createState() => _CarouselState();
+}
+
+class _CarouselState extends State<Carousel> {
   final CarouselController carouselController = CarouselController();
+
   @override
   Widget build(BuildContext context) {
     double carouselContainerHeight = MediaQuery.of(context).size.height *
@@ -24,7 +31,7 @@ class Carousel extends StatelessWidget {
               options: CarouselOptions(
                 // autoPlay: true,
                 viewportFraction: 1,
-                scrollPhysics: NeverScrollableScrollPhysics(),
+                scrollPhysics: const NeverScrollableScrollPhysics(),
                 height: carouselContainerHeight,
               ),
               items: List.generate(
@@ -68,20 +75,15 @@ class Carousel extends StatelessWidget {
 // Big screens
 Widget _buildDesktop(BuildContext context, Widget text, Widget image) {
   return Center(
-    child: ResponsiveWrapper(
-      maxWidth: kDesktopMaxWidth,
-      minWidth: kDesktopMaxWidth,
-      defaultScale: false,
-      child: Row(
-        children: [
-          Expanded(
-            child: text,
-          ),
-          Expanded(
-            child: image,
-          )
-        ],
-      ),
+    child: Row(
+      children: [
+        Expanded(
+          child: text,
+        ),
+        Expanded(
+          child: image,
+        )
+      ],
     ),
   );
 }
@@ -89,20 +91,15 @@ Widget _buildDesktop(BuildContext context, Widget text, Widget image) {
 // Mid screens
 Widget _buildTablet(BuildContext context, Widget text, Widget image) {
   return Center(
-    child: ResponsiveWrapper(
-      maxWidth: kTabletMaxWidth,
-      minWidth: kTabletMaxWidth,
-      defaultScale: false,
-      child: Row(
-        children: [
-          Expanded(
-            child: text,
-          ),
-          Expanded(
-            child: image,
-          )
-        ],
-      ),
+    child: Row(
+      children: [
+        Expanded(
+          child: text,
+        ),
+        Expanded(
+          child: image,
+        )
+      ],
     ),
   );
 }
