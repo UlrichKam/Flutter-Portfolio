@@ -26,7 +26,7 @@ final List<FooterItem> footerItems = [
   FooterItem(
     iconPath: "assets/whatsapp.png",
     title: "WHATSAPP",
-    text1: "237 694 646 025",
+    text1: "+237 694 646 025",
     text2: "",
   )
 ];
